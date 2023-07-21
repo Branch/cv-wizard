@@ -1,5 +1,5 @@
 {
-    "name": "nextjs-boilerplate",
+    "name": "cv-wizard",
     "version": "0.1.0",
     "private": true,
     "scripts": {
@@ -16,9 +16,15 @@
         "cypress:test": "start-server-and-test start http://localhost:3000 cypress:headless"
     },
     "dependencies": {
+        "@radix-ui/react-slot": "^1.0.2",
+        "class-variance-authority": "^0.7.0",
+        "clsx": "^2.0.0",
+        "lucide-react": "^0.262.0",
         "next": "^13.4.10",
         "react": "^18.2.0",
-        "react-dom": "^18.2.0"
+        "react-dom": "^18.2.0",
+        "tailwind-merge": "^1.14.0",
+        "tailwindcss-animate": "^1.0.6"
     },
     "devDependencies": {
         "@testing-library/jest-dom": "^5.17.0",

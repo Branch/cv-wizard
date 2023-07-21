@@ -1,5 +1,11 @@
 import { Metadata } from 'next'
+import { Inter } from 'next/font/google'
 import '../styles/globals.css'
+
+const inter = Inter({
+    subsets: ['latin'],
+    display: 'swap',
+})
 
 export default function RootLayout({
     // Layouts must accept a children prop.
@@ -9,12 +15,12 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     return (
-        <html lang="en">
+        <html lang="en" className={inter.className}>
             <body>{children}</body>
         </html>
     )
 }
 export const metadata: Metadata = {
-    title: 'Home',
+    title: 'Home!',
     description: 'Welcome to Next.js',
 }
