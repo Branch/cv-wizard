@@ -36,7 +36,7 @@ export default function Home() {
                 </p>
                 <div className="flex gap-4">
                     <Button asChild>
-                        <Link href="/login">Kom igång</Link>
+                        <Link href="/app">Kom igång</Link>
                     </Button>
                     <Button variant={'secondary'}>Läs mer</Button>
                 </div>
