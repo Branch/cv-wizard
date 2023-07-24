@@ -29,7 +29,7 @@ export default function RootLayout({
                 <footer className="container text-sm py-12">
                     <div className="border-b pb-12 mb-12">
                         <h3 className="font-bold">Kom igång</h3>
-                        <ul className="flex flex-col gap-2 mt-2 text-slate-400">
+                        <ul className="flex flex-col gap-3 mt-4 text-slate-400">
                             <li>
                                 <Link className=" hover:text-primary" href={''}>
                                     Välj mall
