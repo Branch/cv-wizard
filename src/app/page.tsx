@@ -5,7 +5,7 @@ export default function Home() {
     return (
         <main className="flex flex-col items-center justify-between py-24 relative overflow-hidden">
             <div className="bg-[url('/img/hero.svg')] w-full h-full absolute bg-no-repeat scale-[3] bg-center z-0"></div>
-            <header className="container mx-auto flex flex-col justify-center items-center pt-24 px-24 relative">
+            <header className="container mx-auto flex flex-col justify-center items-center pt-24 px-64 relative">
                 <h1 className="text-6xl block font-extrabold text-center">
                     Bygg ditt CV snabbt och enkelt, helt gratis.
                 </h1>
