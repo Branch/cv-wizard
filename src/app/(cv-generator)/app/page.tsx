@@ -1,3 +1,3 @@
 export default function App() {
-    return <div>Tjenare</div>
+    return <div className="h-screen text-primary-foreground">Tjenare</div>
 }
