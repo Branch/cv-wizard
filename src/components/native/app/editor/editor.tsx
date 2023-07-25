@@ -1,7 +1,11 @@
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { updateName } from '@/lib/ctx/actions'
+import { useStateMachine } from 'little-state-machine'
 
 export default function Editor() {
+    const { actions, state } = useStateMachine({ updateName })
+
     return (
         <section>
             <h2 className="font-bold mb-4 text-2xl">Personliga uppgifter</h2>
@@ -23,7 +27,15 @@ export default function Editor() {
             <div className="flex justify-between gap-4 mb-8">
                 <div className="grid w-full max-w-sm items-center gap-2">
                     <Label htmlFor="name">Namn</Label>
-                    <Input type="text" id="name" placeholder="Anna Andersson" />
+                    <Input
+                        type="text"
+                        id="name"
+                        defaultValue={state.cvInfo.name}
+                        onChange={(e) =>
+                            actions.updateName({ name: e.target.value })
+                        }
+                        placeholder="Anna Andersson"
+                    />
                 </div>
                 <div className="grid w-full max-w-sm items-center gap-2">
                     <Label htmlFor="email">E-post</Label>

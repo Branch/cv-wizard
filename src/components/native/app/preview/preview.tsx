@@ -1,3 +1,11 @@
+import { useStateMachine } from 'little-state-machine'
+
 export default function Preview() {
-    return <section className="bg-white"></section>
+    const { state } = useStateMachine()
+
+    return (
+        <section className="bg-white">
+            <h1>{state.cvInfo.name}</h1>
+        </section>
+    )
 }
