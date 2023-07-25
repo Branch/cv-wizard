@@ -1,4 +1,4 @@
-import Nav from '@/components/ui/native/nav'
+import Nav from '@/components/native/base/nav'
 import Link from 'next/link'
 
 export default function WebLayout({ children }: { children: React.ReactNode }) {
