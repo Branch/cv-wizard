@@ -20,6 +20,7 @@ export interface ILeetProps {
     phone: string
     city: string
     license: string
+    profile: string
     birthdate: undefined | Date
 }
 
@@ -34,6 +35,7 @@ export default function Leet({
     city,
     license,
     birthdate,
+    profile,
 }: ILeetProps) {
     const { state } = useStateMachine({
         updateColor,
@@ -57,12 +59,22 @@ export default function Leet({
         },
         mainLeftHeading: {
             marginBottom: '5px',
+            fontSize: 12,
         },
         mainLeftText: {
             fontSize: 10,
         },
         mainRight: {
             flexDirection: 'column',
+            width: '100%',
+        },
+        mainRightHeading: {
+            marginBottom: 5,
+        },
+        mainRightText: {
+            fontSize: 12,
+            lineHeight: 1.5,
+            letterSpacing: 0.5,
         },
         header: {
             flexDirection: 'row',
@@ -143,7 +155,18 @@ export default function Leet({
                                 </View>
                             ) : null}
                         </View>
-                        <View style={styles.mainRight}></View>
+                        <View style={styles.mainRight}>
+                            {profile ? (
+                                <View>
+                                    <Text style={styles.mainRightHeading}>
+                                        Profil
+                                    </Text>
+                                    <Text style={styles.mainRightText}>
+                                        {profile}
+                                    </Text>
+                                </View>
+                            ) : null}
+                        </View>
                     </View>
                 </Page>
             </Document>

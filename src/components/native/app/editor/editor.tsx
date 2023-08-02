@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Calendar } from '@/components/ui/calendar'
+import { Textarea } from '@/components/ui/textarea'
+
 import {
     Popover,
     PopoverTrigger,
@@ -24,6 +26,7 @@ import {
     updateAddress,
     updateLicense,
     updatePostcode,
+    updateProfile,
 } from '@/lib/ctx/actions'
 import { cn } from '@/lib/utils'
 import { useStateMachine } from 'little-state-machine'
@@ -42,6 +45,7 @@ export default function Editor() {
         updateAddress,
         updateLicense,
         updatePostcode,
+        updateProfile,
     })
 
     /**
@@ -242,6 +246,23 @@ export default function Editor() {
                     </AccordionContent>
                 </AccordionItem>
             </Accordion>
+            <h2 className="font-bold my-4 text-2xl">Profil</h2>
+            <div className="grid w-full gap-1.5">
+                <Label htmlFor="message" className="text-slate-400 font-normal">
+                    2-4 korta meningar för att intressera arbetsgivaren.
+                    Förslagsvis din nuvarande roll, bakgrund och bedrifter.
+                </Label>
+                <Textarea
+                    defaultValue={state.cvInfo.profile}
+                    onChange={(e) =>
+                        actions.updateProfile({
+                            profile: e.target.value,
+                        })
+                    }
+                    placeholder="t.ex Passionerad förskolelärare med 7 års erfarenhet ..."
+                    id="message"
+                />
+            </div>
         </section>
     )
 }

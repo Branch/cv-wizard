@@ -12,6 +12,7 @@ declare module 'little-state-machine' {
             phone: string
             city: string
             license: string
+            profile: string
             birthdate: undefined | Date
         }
         tpl: 'Clean' | '1337' | 'Zesam'

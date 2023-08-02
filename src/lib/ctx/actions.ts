@@ -90,6 +90,18 @@ export function updateCity(state: GlobalState, payload: { city: string }) {
         },
     }
 }
+export function updateProfile(
+    state: GlobalState,
+    payload: { profile: string }
+) {
+    return {
+        ...state,
+        cvInfo: {
+            ...state.cvInfo,
+            ...payload,
+        },
+    }
+}
 export function setBirthdate(state: GlobalState, payload: { birthdate: Date }) {
     return {
         ...state,
