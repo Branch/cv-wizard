@@ -81,4 +81,7 @@
     body {
         @apply bg-background text-foreground;
     }
+    .sheet-content .react-colorful {
+        @apply w-full;
+    }
 }

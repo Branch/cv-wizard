@@ -4,7 +4,20 @@ import { ReactNode } from 'react'
 
 export default function Provider({ children }: { children: ReactNode }) {
     createStore({
-        cvInfo: { name: '', email: '', img: '', phone: '', city: '' },
+        cvInfo: {
+            title: '',
+            postcode: '',
+            address: '',
+            name: '',
+            email: '',
+            img: '',
+            phone: '',
+            city: '',
+            license: '',
+            birthdate: undefined,
+        },
+        tpl: '1337',
+        color: '#000000',
     })
 
     return <StateMachineProvider>{children}</StateMachineProvider>
