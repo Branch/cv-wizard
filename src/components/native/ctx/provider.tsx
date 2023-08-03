@@ -15,9 +15,11 @@ export default function Provider({ children }: { children: ReactNode }) {
             city: '',
             license: '',
             birthdate: undefined,
+            profile: '',
+            experience: [],
         },
         tpl: '1337',
-        color: '#000000',
+        color: '#CB9EF1',
     })
 
     return <StateMachineProvider>{children}</StateMachineProvider>

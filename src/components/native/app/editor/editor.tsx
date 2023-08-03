@@ -4,12 +4,14 @@ import {
     AccordionTrigger,
     AccordionContent,
 } from '@/components/ui/accordion'
+import { ReactSortable } from 'react-sortablejs'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Calendar } from '@/components/ui/calendar'
 import { Textarea } from '@/components/ui/textarea'
-
+import ExperienceAccordion from '@/components/native/app/editor/accordion/experience'
+import { Plus, GripVertical } from 'lucide-react'
 import {
     Popover,
     PopoverTrigger,
@@ -27,13 +29,22 @@ import {
     updateLicense,
     updatePostcode,
     updateProfile,
+    createExperience,
 } from '@/lib/ctx/actions'
 import { cn } from '@/lib/utils'
-import { useStateMachine } from 'little-state-machine'
+import { Experience, useStateMachine } from 'little-state-machine'
 import { Calendar as CalendarIcon } from 'lucide-react'
 import { format } from 'date-fns'
+import {
+    TooltipProvider,
+    Tooltip,
+    TooltipTrigger,
+    TooltipContent,
+} from '@/components/ui/tooltip'
+import { useEffect, useState } from 'react'
 
 export default function Editor() {
+    const [sortableExp, setExpList] = useState<any[]>([])
     const { actions, state } = useStateMachine({
         updateName,
         setBirthdate,
@@ -46,7 +57,18 @@ export default function Editor() {
         updateLicense,
         updatePostcode,
         updateProfile,
+        createExperience,
     })
+
+    useEffect(() => {
+        const list = state.cvInfo.experience.map((exp, i) => {
+            return {
+                id: i,
+                ...exp,
+            }
+        })
+        setExpList(list)
+    }, [state.cvInfo.experience])
 
     /**
      * On profile pic change
@@ -63,7 +85,6 @@ export default function Editor() {
     return (
         <section>
             <h2 className="font-bold mb-4 text-2xl">Personliga uppgifter</h2>
-
             <div className="flex justify-between gap-4 mb-8">
                 <div className="grid w-full max-w-sm items-center gap-2">
                     <Label htmlFor="title">Jobbtitel</Label>
@@ -262,6 +283,51 @@ export default function Editor() {
                     placeholder="t.ex Passionerad förskolelärare med 7 års erfarenhet ..."
                     id="message"
                 />
+            </div>
+            <h2 className="font-bold my-4 text-2xl">Arbetslivserfarenhet</h2>
+            <div className="grid w-full gap-1.5">
+                <Label
+                    htmlFor="experience"
+                    className="text-slate-400 font-normal"
+                >
+                    Din relevanta arbetslivserfarenhet (senaste 10 åren). Jobba
+                    med texten och använd listor och lyft dina bedrifter i
+                    samband med KPI:er.
+                </Label>
+                {state.cvInfo.experience ? (
+                    <ReactSortable
+                        list={sortableExp}
+                        animation={250}
+                        setList={setExpList}
+                    >
+                        {sortableExp.map((exp: Experience, i) => {
+                            return (
+                                <ExperienceAccordion
+                                    key={i}
+                                    id={i}
+                                    experience={exp}
+                                />
+                            )
+                        })}
+                    </ReactSortable>
+                ) : null}
+                <Button
+                    variant={'secondary'}
+                    className="gap-1 font-bold"
+                    onClick={() =>
+                        actions.createExperience({
+                            experience: {
+                                title: '',
+                                employer: '',
+                                city: '',
+                                desc: '',
+                                startDate: new Date(),
+                            },
+                        })
+                    }
+                >
+                    <Plus size={16} /> Lägg till
+                </Button>
             </div>
         </section>
     )

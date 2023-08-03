@@ -1,4 +1,4 @@
-import { GlobalState } from 'little-state-machine'
+import { Experience, GlobalState } from 'little-state-machine'
 
 export function updateName(state: GlobalState, payload: { name: string }) {
     return {
@@ -116,4 +116,34 @@ export function updateColor(state: GlobalState, payload: { color: string }) {
         ...state,
         color: payload.color,
     }
+}
+export function createExperience(
+    state: GlobalState,
+    payload: { experience: Experience }
+) {
+    return {
+        ...state,
+        cvInfo: {
+            ...state.cvInfo,
+            experience: [...state.cvInfo.experience, payload.experience],
+        },
+    }
+}
+export function updateExperienceTitle(
+    state: GlobalState,
+    payload: { index: number; value: string }
+) {
+    const tmpExp = state.cvInfo.experience.slice()
+    tmpExp[payload.index]['title'] = payload.value
+
+    return { ...state, cvInfo: { ...state.cvInfo, experience: tmpExp } }
+}
+export function updateExperienceEmployer(
+    state: GlobalState,
+    payload: { index: number; value: string }
+) {
+    const tmpExp = state.cvInfo.experience.slice()
+    tmpExp[payload.index]['employer'] = payload.value
+
+    return { ...state, cvInfo: { ...state.cvInfo, experience: tmpExp } }
 }
