@@ -1,4 +1,4 @@
-import { useStateMachine } from 'little-state-machine'
+import { Experience, useStateMachine } from 'little-state-machine'
 import { updateColor } from '@/lib/ctx/actions'
 import {
     Page,
@@ -21,6 +21,7 @@ export interface ILeetProps {
     city: string
     license: string
     profile: string
+    experience: Experience[]
     birthdate: undefined | Date
 }
 
@@ -36,6 +37,7 @@ export default function Leet({
     license,
     birthdate,
     profile,
+    experience,
 }: ILeetProps) {
     const { state } = useStateMachine({
         updateColor,
@@ -46,6 +48,7 @@ export default function Leet({
         page: {
             flexDirection: 'column',
             padding: 40,
+            fontFamily: 'Helvetica',
         },
         main: {
             marginTop: 20,
@@ -60,6 +63,7 @@ export default function Leet({
         mainLeftHeading: {
             marginBottom: '5px',
             fontSize: 12,
+            fontFamily: 'Helvetica-Bold',
         },
         mainLeftText: {
             fontSize: 10,
@@ -67,12 +71,22 @@ export default function Leet({
         mainRight: {
             flexDirection: 'column',
             width: '100%',
+            gap: 15,
         },
         mainRightHeading: {
             marginBottom: 5,
+            letterSpacing: 0.3,
+            fontFamily: 'Helvetica-Bold',
         },
         mainRightText: {
             fontSize: 12,
+            lineHeight: 1.5,
+            letterSpacing: 0.5,
+        },
+        mainRightSubheading: {
+            fontFamily: 'Helvetica-Bold',
+            fontSize: 12,
+            marginVertical: 5,
             lineHeight: 1.5,
             letterSpacing: 0.5,
         },
@@ -88,6 +102,7 @@ export default function Leet({
         },
         headerTitle: {
             fontSize: 30,
+            fontFamily: 'Helvetica-Bold',
         },
         headerBottom: {
             fontSize: 10,
@@ -164,6 +179,57 @@ export default function Leet({
                                     <Text style={styles.mainRightText}>
                                         {profile}
                                     </Text>
+                                </View>
+                            ) : null}
+                            {experience ? (
+                                <View>
+                                    <Text style={styles.mainRightHeading}>
+                                        Arbetslifserfarenhet
+                                    </Text>
+                                    {experience.map((exp, i) => {
+                                        return (
+                                            <View key={i}>
+                                                <Text
+                                                    style={
+                                                        styles.mainRightSubheading
+                                                    }
+                                                >
+                                                    {exp.title.length > 0 &&
+                                                    exp.employer.length > 0
+                                                        ? `${exp.title} på ${exp.employer}`
+                                                        : 'Inte specificerat'}
+                                                </Text>
+                                                <Text
+                                                    style={styles.mainRightText}
+                                                >
+                                                    Sitter idag med fyra system
+                                                    (CRM, CMS,
+                                                    artikelanalyssystem samt en
+                                                    Wordpressmiljö (Trellis /
+                                                    Bedrock)). Har sedan
+                                                    sommaren 2019 varit ensam
+                                                    programmerare på bolaget.
+                                                    Artikelanalyssystemet är
+                                                    byggt i React / PHP vilket
+                                                    jag designade, utvecklade
+                                                    och lanserade på egen hand
+                                                    och används idag av våra
+                                                    produktionsavdelningar
+                                                    världen över för att
+                                                    analysera hur våra artiklar
+                                                    presterar på våra diverse
+                                                    hemsidor. <br></br>
+                                                    <br></br>Hanterar dagligen
+                                                    prioritering av ärenden,
+                                                    kontakt med leverantörer,
+                                                    kundkontakt samt vidare- och
+                                                    nyutveckling av befintliga
+                                                    system och rapporterar
+                                                    direkt till CTO.
+                                                </Text>
+                                            </View>
+                                        )
+                                    })}
                                 </View>
                             ) : null}
                         </View>

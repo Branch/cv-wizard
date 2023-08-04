@@ -4,7 +4,7 @@ import {
     AccordionTrigger,
     AccordionContent,
 } from '@/components/ui/accordion'
-import { ReactSortable } from 'react-sortablejs'
+import { ReactSortable, ItemInterface } from 'react-sortablejs'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -30,6 +30,7 @@ import {
     updatePostcode,
     updateProfile,
     createExperience,
+    updateExperienceOrder,
 } from '@/lib/ctx/actions'
 import { cn } from '@/lib/utils'
 import { Experience, useStateMachine } from 'little-state-machine'
@@ -58,9 +59,14 @@ export default function Editor() {
         updatePostcode,
         updateProfile,
         createExperience,
+        updateExperienceOrder,
     })
 
+    // On state change, update list in editor
     useEffect(() => {
+        if (state.cvInfo.experience.length === sortableExp.length) {
+            return
+        }
         const list = state.cvInfo.experience.map((exp, i) => {
             return {
                 id: i,
@@ -69,6 +75,11 @@ export default function Editor() {
         })
         setExpList(list)
     }, [state.cvInfo.experience])
+
+    // On editor order change, update state
+    useEffect(() => {
+        actions.updateExperienceOrder({ arr: sortableExp })
+    }, [sortableExp])
 
     /**
      * On profile pic change

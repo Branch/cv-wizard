@@ -147,3 +147,13 @@ export function updateExperienceEmployer(
 
     return { ...state, cvInfo: { ...state.cvInfo, experience: tmpExp } }
 }
+
+export function updateExperienceOrder(
+    state: GlobalState,
+    payload: { arr: Experience[] }
+) {
+    if (payload.arr.length <= 0) {
+        return { ...state }
+    }
+    return { ...state, cvInfo: { ...state.cvInfo, experience: payload.arr } }
+}

@@ -15,6 +15,7 @@ export default function Preview() {
                             license: state.cvInfo.license,
                             birthdate: state.cvInfo.birthdate,
                             profile: state.cvInfo.profile,
+                            experience: state.cvInfo.experience,
                             title:
                                 state.cvInfo.title.length > 0
                                     ? state.cvInfo.title
