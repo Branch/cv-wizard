@@ -1,13 +1,13 @@
 import 'little-state-machine'
+import { DateRange } from 'react-day-picker'
 
 declare module 'little-state-machine' {
-    interface Experience {
+    interface ExperienceState {
         title: string
         employer: string
         city: string
         desc: string
-        startDate: Date
-        endDate?: Date | undefined
+        date?: DateRange
     }
     interface GlobalState {
         cvInfo: {

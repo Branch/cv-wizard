@@ -1,4 +1,5 @@
-import { Experience, GlobalState } from 'little-state-machine'
+import { ExperienceState, GlobalState } from 'little-state-machine'
+import { DateRange } from 'react-day-picker'
 
 export function updateName(state: GlobalState, payload: { name: string }) {
     return {
@@ -119,7 +120,7 @@ export function updateColor(state: GlobalState, payload: { color: string }) {
 }
 export function createExperience(
     state: GlobalState,
-    payload: { experience: Experience }
+    payload: { experience: ExperienceState }
 ) {
     return {
         ...state,
@@ -148,9 +149,19 @@ export function updateExperienceEmployer(
     return { ...state, cvInfo: { ...state.cvInfo, experience: tmpExp } }
 }
 
+export function updateExperienceDate(
+    state: GlobalState,
+    payload: { index: number; value: DateRange }
+) {
+    const tmpExp = state.cvInfo.experience.slice()
+    tmpExp[payload.index]['date'] = payload.value
+    console.log('tmp date', payload.value)
+    return { ...state, cvInfo: { ...state.cvInfo, experience: tmpExp } }
+}
+
 export function updateExperienceOrder(
     state: GlobalState,
-    payload: { arr: Experience[] }
+    payload: { arr: ExperienceState[] }
 ) {
     if (payload.arr.length <= 0) {
         return { ...state }

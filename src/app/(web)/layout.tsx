@@ -6,7 +6,12 @@ export default function WebLayout({ children }: { children: React.ReactNode }) {
         <>
             <div className="fixed bg-white/90 backdrop-blur-sm h-16 z-10 flex justify-between w-full px-24 border-b items-center">
                 <div className="flex gap-4 justify-center items-center">
-                    <Link href={'/'}>Min logga</Link>
+                    <Link
+                        className="font-bold rounded-md bg-highlightPrimary hover:bg-hightlightPrimary-foreground text-white py-2 px-4"
+                        href={'/'}
+                    >
+                        mitt CV
+                    </Link>
                     <Nav />
                 </div>
             </div>
@@ -32,7 +37,12 @@ export default function WebLayout({ children }: { children: React.ReactNode }) {
                         </li>
                     </ul>
                 </div>
-                <Link href={'/'}>Min logga</Link>
+                <Link
+                    className="font-bold rounded-md bg-highlightPrimary hover:bg-hightlightPrimary-foreground text-white py-2 px-4"
+                    href={'/'}
+                >
+                    mitt CV
+                </Link>
             </footer>
         </>
     )
