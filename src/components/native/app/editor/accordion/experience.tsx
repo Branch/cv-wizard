@@ -20,13 +20,16 @@ import {
     updateExperienceTitle,
     updateExperienceEmployer,
     updateExperienceDate,
+    updateExperienceCity,
+    updateExperienceDesc,
 } from '@/lib/ctx/actions'
-import ReactQuill from 'react-quill'
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 import 'react-quill/dist/quill.snow.css'
 import { useState } from 'react'
 import { DateRange } from 'react-day-picker'
 import { addDays, format, parseISO } from 'date-fns'
 import moment from 'moment'
+import dynamic from 'next/dynamic'
 
 export interface IExperience {
     id: number
@@ -39,14 +42,15 @@ export default function Experience({ id, experience }: IExperience) {
         updateExperienceTitle,
         updateExperienceEmployer,
         updateExperienceDate,
+        updateExperienceCity,
+        updateExperienceDesc,
     })
-    console.log('datum', date)
     return (
         <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="item-1">
                 <AccordionTrigger className="hover:no-underline cursor-move">
                     {title.length > 0 && employer.length > 0
-                        ? `${title} på ${employer}`
+                        ? `${title}, ${employer}${city ? `, ${city}` : ''}`
                         : 'Inte specificerat'}
                 </AccordionTrigger>
                 <AccordionContent>
@@ -138,44 +142,18 @@ export default function Experience({ id, experience }: IExperience) {
                                     />
                                 </PopoverContent>
                             </Popover>
-                            {/* <div className="flex gap-2">
-                                <Input
-                                    type="text"
-                                    id="title"
-                                    placeholder="Storgatan 1"
-                                    defaultValue={title}
-                                    onChange={(e) =>
-                                        actions.updateExperienceTitle({
-                                            index: id,
-                                            value: e.target.value,
-                                        })
-                                    }
-                                />
-                                <Input
-                                    type="text"
-                                    id="title"
-                                    placeholder="Storgatan 1"
-                                    defaultValue={title}
-                                    onChange={(e) =>
-                                        actions.updateExperienceTitle({
-                                            index: id,
-                                            value: e.target.value,
-                                        })
-                                    }
-                                />
-                            </div> */}
                         </div>
                         <div className="grid w-full max-w-sm items-center gap-2">
-                            <Label htmlFor="employer">Arbetsgivare</Label>
+                            <Label htmlFor="employer">Stad</Label>
                             <Input
-                                defaultValue={employer}
+                                defaultValue={city}
                                 onChange={(e) =>
-                                    actions.updateExperienceEmployer({
+                                    actions.updateExperienceCity({
                                         index: id,
                                         value: e.target.value,
                                     })
                                 }
-                                id="employer"
+                                id="city"
                                 type="text"
                             />
                         </div>
@@ -184,8 +162,26 @@ export default function Experience({ id, experience }: IExperience) {
                         <div className="grid w-full items-center gap-2">
                             <Label htmlFor="description">Beskrivning</Label>
                             <ReactQuill
+                                modules={{
+                                    toolbar: [
+                                        [],
+                                        ['underline', 'link'],
+                                        [
+                                            { list: 'ordered' },
+                                            { list: 'bullet' },
+                                        ],
+                                    ],
+                                }}
+                                defaultValue={desc}
+                                id="description"
                                 theme="snow"
                                 placeholder="Beskrivning av din roll"
+                                onChange={(html) =>
+                                    actions.updateExperienceDesc({
+                                        index: id,
+                                        value: html,
+                                    })
+                                }
                             />
                         </div>
                     </div>

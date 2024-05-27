@@ -139,12 +139,30 @@ export function updateExperienceTitle(
 
     return { ...state, cvInfo: { ...state.cvInfo, experience: tmpExp } }
 }
+export function updateExperienceCity(
+    state: GlobalState,
+    payload: { index: number; value: string }
+) {
+    const tmpExp = state.cvInfo.experience.slice()
+    tmpExp[payload.index]['city'] = payload.value
+
+    return { ...state, cvInfo: { ...state.cvInfo, experience: tmpExp } }
+}
 export function updateExperienceEmployer(
     state: GlobalState,
     payload: { index: number; value: string }
 ) {
     const tmpExp = state.cvInfo.experience.slice()
     tmpExp[payload.index]['employer'] = payload.value
+
+    return { ...state, cvInfo: { ...state.cvInfo, experience: tmpExp } }
+}
+export function updateExperienceDesc(
+    state: GlobalState,
+    payload: { index: number; value: string }
+) {
+    const tmpExp = state.cvInfo.experience.slice()
+    tmpExp[payload.index]['desc'] = payload.value
 
     return { ...state, cvInfo: { ...state.cvInfo, experience: tmpExp } }
 }
@@ -155,7 +173,6 @@ export function updateExperienceDate(
 ) {
     const tmpExp = state.cvInfo.experience.slice()
     tmpExp[payload.index]['date'] = payload.value
-    console.log('tmp date', payload.value)
     return { ...state, cvInfo: { ...state.cvInfo, experience: tmpExp } }
 }
 

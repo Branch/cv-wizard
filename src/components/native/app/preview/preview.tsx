@@ -1,5 +1,8 @@
 import { useStateMachine } from 'little-state-machine'
-import Leet from '@/components/native/templates/leet'
+import dynamic from 'next/dynamic'
+const Leet = dynamic(() => import('@/components/native/templates/leet'), {
+    ssr: false,
+})
 
 export default function Preview() {
     const { state } = useStateMachine()

@@ -1,4 +1,4 @@
-import { Experience, useStateMachine } from 'little-state-machine'
+import { ExperienceState, useStateMachine } from 'little-state-machine'
 import { updateColor } from '@/lib/ctx/actions'
 import {
     Page,
@@ -9,6 +9,8 @@ import {
     PDFViewer,
     Image,
 } from '@react-pdf/renderer'
+import { dateRangeToString } from '@/lib/utils'
+import { Html } from 'react-pdf-html'
 
 export interface ILeetProps {
     title: string
@@ -21,7 +23,7 @@ export interface ILeetProps {
     city: string
     license: string
     profile: string
-    experience: Experience[]
+    experience: ExperienceState[]
     birthdate: undefined | Date
 }
 
@@ -82,6 +84,7 @@ export default function Leet({
             fontSize: 12,
             lineHeight: 1.5,
             letterSpacing: 0.5,
+            marginBottom: '20px',
         },
         mainRightSubheading: {
             fontFamily: 'Helvetica-Bold',
@@ -89,6 +92,17 @@ export default function Leet({
             marginVertical: 5,
             lineHeight: 1.5,
             letterSpacing: 0.5,
+        },
+        mainRightSubheadingSecondary: {
+            fontFamily: 'Helvetica',
+            fontSize: 11,
+            marginVertical: 5,
+            lineHeight: 1,
+            marginTop: '-3px',
+            marginBottom: '15px',
+            letterSpacing: 0.5,
+            textTransform: 'capitalize',
+            color: 'grey',
         },
         header: {
             flexDirection: 'row',
@@ -187,6 +201,7 @@ export default function Leet({
                                         Arbetslifserfarenhet
                                     </Text>
                                     {experience.map((exp, i) => {
+                                        console.log(exp.desc)
                                         return (
                                             <View key={i}>
                                                 <Text
@@ -196,37 +211,36 @@ export default function Leet({
                                                 >
                                                     {exp.title.length > 0 &&
                                                     exp.employer.length > 0
-                                                        ? `${exp.title} på ${exp.employer}`
+                                                        ? `${exp.title}, ${
+                                                              exp.employer
+                                                          }${
+                                                              exp.city
+                                                                  ? `, ${exp.city}`
+                                                                  : ''
+                                                          }`
                                                         : 'Inte specificerat'}
                                                 </Text>
                                                 <Text
-                                                    style={styles.mainRightText}
+                                                    style={
+                                                        styles.mainRightSubheadingSecondary
+                                                    }
                                                 >
-                                                    Sitter idag med fyra system
-                                                    (CRM, CMS,
-                                                    artikelanalyssystem samt en
-                                                    Wordpressmiljö (Trellis /
-                                                    Bedrock)). Har sedan
-                                                    sommaren 2019 varit ensam
-                                                    programmerare på bolaget.
-                                                    Artikelanalyssystemet är
-                                                    byggt i React / PHP vilket
-                                                    jag designade, utvecklade
-                                                    och lanserade på egen hand
-                                                    och används idag av våra
-                                                    produktionsavdelningar
-                                                    världen över för att
-                                                    analysera hur våra artiklar
-                                                    presterar på våra diverse
-                                                    hemsidor. <br></br>
-                                                    <br></br>Hanterar dagligen
-                                                    prioritering av ärenden,
-                                                    kontakt med leverantörer,
-                                                    kundkontakt samt vidare- och
-                                                    nyutveckling av befintliga
-                                                    system och rapporterar
-                                                    direkt till CTO.
+                                                    {exp.date?.from &&
+                                                    exp.date?.to
+                                                        ? dateRangeToString(
+                                                              exp.date.from,
+                                                              exp.date.to
+                                                          )
+                                                        : ''}
                                                 </Text>
+                                                <Html
+                                                    style={{
+                                                        fontSize: '11px',
+                                                        lineHeight: '1.5',
+                                                    }}
+                                                >
+                                                    {exp.desc}
+                                                </Html>
                                             </View>
                                         )
                                     })}

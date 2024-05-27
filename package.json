@@ -37,6 +37,7 @@
         "react-colorful": "^5.6.1",
         "react-day-picker": "^8.10.1",
         "react-dom": "^18.2.0",
+        "react-pdf-html": "^2.0.4",
         "react-quill": "^2.0.0",
         "react-sortablejs": "^6.1.4",
         "sortablejs": "^1.15.0",

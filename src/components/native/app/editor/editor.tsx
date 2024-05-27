@@ -33,7 +33,7 @@ import {
     updateExperienceOrder,
 } from '@/lib/ctx/actions'
 import { cn } from '@/lib/utils'
-import { Experience, useStateMachine } from 'little-state-machine'
+import { ExperienceState, useStateMachine } from 'little-state-machine'
 import { Calendar as CalendarIcon } from 'lucide-react'
 import { format } from 'date-fns'
 import {
@@ -311,7 +311,7 @@ export default function Editor() {
                         animation={250}
                         setList={setExpList}
                     >
-                        {sortableExp.map((exp: Experience, i) => {
+                        {sortableExp.map((exp: ExperienceState, i) => {
                             return (
                                 <ExperienceAccordion
                                     key={i}
@@ -332,7 +332,7 @@ export default function Editor() {
                                 employer: '',
                                 city: '',
                                 desc: '',
-                                startDate: new Date(),
+                                date: { from: new Date() },
                             },
                         })
                     }
