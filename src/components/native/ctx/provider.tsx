@@ -17,6 +17,7 @@ export default function Provider({ children }: { children: ReactNode }) {
             birthdate: undefined,
             profile: '',
             experience: [],
+            education: [],
         },
         tpl: '1337',
         color: '#CB9EF1',

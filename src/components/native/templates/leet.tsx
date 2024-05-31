@@ -1,5 +1,5 @@
 import { ExperienceState, useStateMachine } from 'little-state-machine'
-import { updateColor } from '@/lib/ctx/actions'
+import { updateColor } from '@/lib/ctx/actions/general'
 import {
     Page,
     Text,

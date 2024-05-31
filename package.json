@@ -42,7 +42,8 @@
         "react-sortablejs": "^6.1.4",
         "sortablejs": "^1.15.0",
         "tailwind-merge": "^1.14.0",
-        "tailwindcss-animate": "^1.0.6"
+        "tailwindcss-animate": "^1.0.6",
+        "uid": "^2.0.2"
     },
     "devDependencies": {
         "@testing-library/jest-dom": "^5.17.0",

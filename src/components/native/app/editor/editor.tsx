@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label'
 import { Calendar } from '@/components/ui/calendar'
 import { Textarea } from '@/components/ui/textarea'
 import ExperienceAccordion from '@/components/native/app/editor/accordion/experience'
+import EducationAccordion from '@/components/native/app/editor/accordion/education'
 import { Plus, GripVertical } from 'lucide-react'
 import {
     Popover,
@@ -29,11 +30,21 @@ import {
     updateLicense,
     updatePostcode,
     updateProfile,
+} from '@/lib/ctx/actions/general'
+import {
     createExperience,
     updateExperienceOrder,
-} from '@/lib/ctx/actions'
+} from '@/lib/ctx/actions/experience'
+import {
+    createEducation,
+    updateEducationOrder,
+} from '@/lib/ctx/actions/education'
 import { cn } from '@/lib/utils'
-import { ExperienceState, useStateMachine } from 'little-state-machine'
+import {
+    EducationState,
+    ExperienceState,
+    useStateMachine,
+} from 'little-state-machine'
 import { Calendar as CalendarIcon } from 'lucide-react'
 import { format } from 'date-fns'
 import {
@@ -43,9 +54,12 @@ import {
     TooltipContent,
 } from '@/components/ui/tooltip'
 import { useEffect, useState } from 'react'
+import ExperienceEditor from '@/components/native/app/editor/experience/experienceEditor'
+import EducationEditor from '@/components/native/app/editor/education/educationEditor'
 
 export default function Editor() {
-    const [sortableExp, setExpList] = useState<any[]>([])
+    const [sortableExp, setExpList] = useState<ExperienceState[]>([])
+    const [sortableEdu, setEduList] = useState<EducationState[]>([])
     const { actions, state } = useStateMachine({
         updateName,
         setBirthdate,
@@ -59,27 +73,28 @@ export default function Editor() {
         updatePostcode,
         updateProfile,
         createExperience,
+        createEducation,
         updateExperienceOrder,
+        updateEducationOrder,
     })
 
     // On state change, update list in editor
     useEffect(() => {
-        if (state.cvInfo.experience.length === sortableExp.length) {
-            return
-        }
-        const list = state.cvInfo.experience.map((exp, i) => {
-            return {
-                id: i,
-                ...exp,
-            }
-        })
+        const list = state.cvInfo.experience
         setExpList(list)
     }, [state.cvInfo.experience])
+    useEffect(() => {
+        const list = state.cvInfo?.education
+        setEduList(list)
+    }, [state.cvInfo.education])
 
     // On editor order change, update state
     useEffect(() => {
         actions.updateExperienceOrder({ arr: sortableExp })
     }, [sortableExp])
+    useEffect(() => {
+        actions.updateEducationOrder({ arr: sortableEdu })
+    }, [sortableEdu])
 
     /**
      * On profile pic change
@@ -295,51 +310,14 @@ export default function Editor() {
                     id="message"
                 />
             </div>
-            <h2 className="font-bold my-4 text-2xl">Arbetslivserfarenhet</h2>
-            <div className="grid w-full gap-1.5">
-                <Label
-                    htmlFor="experience"
-                    className="text-slate-400 font-normal"
-                >
-                    Din relevanta arbetslivserfarenhet (senaste 10 åren). Jobba
-                    med texten och använd listor och lyft dina bedrifter i
-                    samband med KPI:er.
-                </Label>
-                {state.cvInfo.experience ? (
-                    <ReactSortable
-                        list={sortableExp}
-                        animation={250}
-                        setList={setExpList}
-                    >
-                        {sortableExp.map((exp: ExperienceState, i) => {
-                            return (
-                                <ExperienceAccordion
-                                    key={i}
-                                    id={i}
-                                    experience={exp}
-                                />
-                            )
-                        })}
-                    </ReactSortable>
-                ) : null}
-                <Button
-                    variant={'secondary'}
-                    className="gap-1 font-bold"
-                    onClick={() =>
-                        actions.createExperience({
-                            experience: {
-                                title: '',
-                                employer: '',
-                                city: '',
-                                desc: '',
-                                date: { from: new Date() },
-                            },
-                        })
-                    }
-                >
-                    <Plus size={16} /> Lägg till
-                </Button>
-            </div>
+            <ExperienceEditor
+                sortableExp={sortableExp}
+                setExpList={setExpList}
+            />
+            <EducationEditor
+                sortableEdu={sortableEdu}
+                setEduList={setEduList}
+            />
         </section>
     )
 }

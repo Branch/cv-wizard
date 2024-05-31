@@ -14,15 +14,15 @@ import {
 import { Calendar } from '@/components/ui/calendar'
 import { cn } from '@/lib/utils'
 import { Label } from '@radix-ui/react-label'
-import { ExperienceState, useStateMachine } from 'little-state-machine'
+import { EducationState, useStateMachine } from 'little-state-machine'
 import { Calendar as CalendarIcon } from 'lucide-react'
 import {
-    updateExperienceTitle,
-    updateExperienceEmployer,
-    updateExperienceDate,
-    updateExperienceCity,
-    updateExperienceDesc,
-} from '@/lib/ctx/actions/experience'
+    updateEducationSchool,
+    updateEducationEducation,
+    updateEducationDate,
+    updateEducationCity,
+    updateEducationDesc,
+} from '@/lib/ctx/actions/education'
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 import 'react-quill/dist/quill.snow.css'
 import { useState } from 'react'
@@ -31,39 +31,39 @@ import { addDays, format, parseISO } from 'date-fns'
 import moment from 'moment'
 import dynamic from 'next/dynamic'
 
-export interface IExperience {
+export interface IEducation {
     id: number
-    experience: ExperienceState
+    educationData: EducationState
 }
 
-export default function Experience({ id, experience }: IExperience) {
-    const { title, employer, city, desc, date } = experience
+export default function Education({ id, educationData }: IEducation) {
+    const { school, education, city, desc, date } = educationData
     const { actions, state } = useStateMachine({
-        updateExperienceTitle,
-        updateExperienceEmployer,
-        updateExperienceDate,
-        updateExperienceCity,
-        updateExperienceDesc,
+        updateEducationSchool,
+        updateEducationEducation,
+        updateEducationDate,
+        updateEducationCity,
+        updateEducationDesc,
     })
     return (
         <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="item-1">
                 <AccordionTrigger className="hover:no-underline cursor-move">
-                    {title.length > 0 && employer.length > 0
-                        ? `${title}, ${employer}${city ? `, ${city}` : ''}`
+                    {school.length > 0 && education.length > 0
+                        ? `${school}, ${education}${city ? `, ${city}` : ''}`
                         : 'Inte specificerat'}
                 </AccordionTrigger>
                 <AccordionContent>
                     <div className="flex justify-between gap-4 mb-8">
                         <div className="grid w-full max-w-sm items-center gap-2">
-                            <Label htmlFor="title">Jobbtitel</Label>
+                            <Label htmlFor="school">Skola</Label>
                             <Input
                                 type="text"
-                                id="title"
-                                placeholder="Storgatan 1"
-                                defaultValue={title}
+                                id="school"
+                                placeholder="KTH"
+                                defaultValue={school}
                                 onChange={(e) =>
-                                    actions.updateExperienceTitle({
+                                    actions.updateEducationSchool({
                                         index: id,
                                         value: e.target.value,
                                     })
@@ -71,16 +71,16 @@ export default function Experience({ id, experience }: IExperience) {
                             />
                         </div>
                         <div className="grid w-full max-w-sm items-center gap-2">
-                            <Label htmlFor="employer">Arbetsgivare</Label>
+                            <Label htmlFor="education">Examen</Label>
                             <Input
-                                defaultValue={employer}
+                                defaultValue={education}
                                 onChange={(e) =>
-                                    actions.updateExperienceEmployer({
+                                    actions.updateEducationEducation({
                                         index: id,
                                         value: e.target.value,
                                     })
                                 }
-                                id="employer"
+                                id="education"
                                 type="text"
                             />
                         </div>
@@ -130,7 +130,7 @@ export default function Experience({ id, experience }: IExperience) {
                                         defaultMonth={date?.from}
                                         selected={date}
                                         onSelect={(e) => {
-                                            actions.updateExperienceDate({
+                                            actions.updateEducationDate({
                                                 index: id,
                                                 value: {
                                                     from: e?.from,
@@ -148,7 +148,7 @@ export default function Experience({ id, experience }: IExperience) {
                             <Input
                                 defaultValue={city}
                                 onChange={(e) =>
-                                    actions.updateExperienceCity({
+                                    actions.updateEducationCity({
                                         index: id,
                                         value: e.target.value,
                                     })
@@ -177,7 +177,7 @@ export default function Experience({ id, experience }: IExperience) {
                                 theme="snow"
                                 placeholder="Beskrivning av din roll"
                                 onChange={(html) =>
-                                    actions.updateExperienceDesc({
+                                    actions.updateEducationDesc({
                                         index: id,
                                         value: html,
                                     })

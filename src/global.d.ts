@@ -3,8 +3,17 @@ import { DateRange } from 'react-day-picker'
 
 declare module 'little-state-machine' {
     interface ExperienceState {
+        id: string
         title: string
         employer: string
+        city: string
+        desc: string
+        date?: DateRange
+    }
+    interface EducationState {
+        id: string
+        school: string
+        education: string
         city: string
         desc: string
         date?: DateRange
@@ -22,7 +31,8 @@ declare module 'little-state-machine' {
             license: string
             profile: string
             birthdate: undefined | Date
-            experience: Experience[]
+            experience: ExperienceState[]
+            education: EducationState[]
         }
         tpl: 'Clean' | '1337' | 'Zesam'
         color: string

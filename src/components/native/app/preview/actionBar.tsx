@@ -22,7 +22,7 @@ import {
 import { HexColorPicker } from 'react-colorful'
 import { useState } from 'react'
 import { useStateMachine } from 'little-state-machine'
-import { updateColor } from '@/lib/ctx/actions'
+import { updateColor } from '@/lib/ctx/actions/general'
 
 export default function ActionBar() {
     const [colorSettingsOpen, toggleColorSettings] = useState(false)
