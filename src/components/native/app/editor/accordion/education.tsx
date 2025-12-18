@@ -172,10 +172,11 @@ export default function Education({ id, educationData }: IEducation) {
                                         ],
                                     ],
                                 }}
+                                className="h-48"
                                 defaultValue={desc}
                                 id="description"
                                 theme="snow"
-                                placeholder="Beskrivning av din roll"
+                                placeholder="Beskriv kort utbildningsinnehållet, till exempel enskilda kurser som kan vara relevanta för tjänsten du söker."
                                 onChange={(html) =>
                                     actions.updateEducationDesc({
                                         index: id,

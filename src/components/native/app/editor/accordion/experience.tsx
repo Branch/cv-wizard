@@ -172,6 +172,7 @@ export default function Experience({ id, experience }: IExperience) {
                                         ],
                                     ],
                                 }}
+                                className="h-48"
                                 defaultValue={desc}
                                 id="description"
                                 theme="snow"
